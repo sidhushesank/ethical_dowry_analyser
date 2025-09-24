@@ -1,0 +1,31 @@
+id,region,year,case_type,status,outcome,details
+1,Delhi,2023,Demand,Open,Pending,Reported in local media
+2,Mumbai,2022,Death,Closed,Conviction,Case highlighted by NGO
+3,Hyderabad,2023,Harassment,Open,Investigation,Ongoing police inquiry
+4,Bangalore,2024,Demand,Open,Pending,Anonymous helpline call
+5,Kolkata,2023,Demand,Closed,Acquittal,Insufficient evidence
+6,Chennai,2022,Death,Open,Pending,Accused absconding
+7,Pune,2024,Harassment,Open,Investigation,Victim rescued
+8,Delhi,2023,Death,Closed,Conviction,High court involvement
+9,Mumbai,2023,Harassment,Open,Pending,Counseling ordered
+10,Hyderabad,2024,Demand,Closed,Conviction,Community outcry
+11,Bangalore,2022,Death,Closed,Acquittal,Family withdrew case
+12,Kolkata,2024,Harassment,Open,Pending,NGO provided shelter
+13,Chennai,2024,Demand,Open,Investigation,Media coverage
+14,Pune,2022,Death,Closed,Conviction,Case solved swiftly
+15,Delhi,2022,Harassment,Open,Pending,Victim in protection
+16,Mumbai,2024,Demand,Closed,Acquittal,False complaint proved
+17,Hyderabad,2022,Death,Open,Pending,Medical evidence lacking
+18,Bangalore,2023,Harassment,Open,Investigation,Repeated threats
+19,Kolkata,2022,Demand,Closed,Conviction,Family mediation failed
+20,Chennai,2023,Death,Closed,Acquittal,Lack of witnesses
+21,Pune,2023,Harassment,Open,Pending,Court hearing soon
+22,Delhi,2024,Demand,Closed,Conviction,Neighbour testimony
+23,Mumbai,2023,Death,Closed,Pending,Post-mortem awaited
+24,Hyderabad,2024,Harassment,Open,Investigation,Victim statement
+25,Bangalore,2022,Demand,Closed,Acquittal,Accused released
+26,Kolkata,2023,Harassment,Open,Pending,Social worker involved
+27,Chennai,2022,Demand,Closed,Conviction,Assets recovered
+28,Pune,2024,Death,Open,Pending,Case transferred
+29,Delhi,2022,Harassment,Open,Investigation,Fresh FIR filed
+30,Mumbai,2024,Demand,Closed,Conviction,Family settlement

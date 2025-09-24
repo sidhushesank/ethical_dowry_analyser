@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Dowry Trends{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Dowry Trends Over Time</h1>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-primary text-white d-flex align-items-center">
+        <i class="bi bi-bar-chart-line-fill me-2"></i>
+        <h5 class="mb-0">Cases per Year</h5>
+      </div>
+      <div class="card-body">
+        <img src="data:image/png;base64,{{ bar_chart_url }}" alt="Cases per Year" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-success text-white d-flex align-items-center">
+        <i class="bi bi-pie-chart-fill me-2"></i>
+        <h5 class="mb-0">Case Types Distribution</h5>
+      </div>
+      <div class="card-body">
+        <img src="data:image/png;base64,{{ pie_chart_url }}" alt="Case Types Distribution" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

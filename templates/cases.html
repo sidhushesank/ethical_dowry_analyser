@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Cases{% endblock %}
+
+{% block content %}
+  <h1 class="mb-3">Browse Dowry-Related Cases</h1>
+  <p>This table shows anonymized dowry case records loaded directly from CSV data.</p>
+
+  <form class="mb-3" method="get" action="{{ url_for('cases') }}">
+    <div class="row g-2 align-items-center">
+      <div class="col-md-3">
+        <select name="region" class="form-select" aria-label="Select region">
+          <option value="">All Regions</option>
+          {% for region_option in regions %}
+            <option value="{{ region_option }}" {% if selected_region == region_option %}selected{% endif %}>{{ region_option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select name="year" class="form-select" aria-label="Select year">
+          <option value="">All Years</option>
+          {% for year_option in years %}
+            <option value="{{ year_option }}" {% if selected_year == year_option %}selected{% endif %}>{{ year_option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select name="case_type" class="form-select" aria-label="Select case type">
+          <option value="">All Case Types</option>
+          {% for case_type_option in case_types %}
+            <option value="{{ case_type_option }}" {% if selected_case_type == case_type_option %}selected{% endif %}>{{ case_type_option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select name="status" class="form-select" aria-label="Select status">
+          <option value="">All Statuses</option>
+          {% for status_option in statuses %}
+            <option value="{{ status_option }}" {% if selected_status == status_option %}selected{% endif %}>{{ status_option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </div>
+    </div>
+  </form>
+  <nav aria-label="Pagination">
+  <ul class="pagination justify-content-center">
+    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('cases', page=page-1, region=selected_region, year=selected_year, case_type=selected_case_type, status=selected_status) }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for p in range(1, total_pages + 1) %}
+    <li class="page-item {% if p == page %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('cases', page=p, region=selected_region, year=selected_year, case_type=selected_case_type, status=selected_status) }}">{{ p }}</a>
+    </li>
+    {% endfor %}
+    <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('cases', page=page+1, region=selected_region, year=selected_year, case_type=selected_case_type, status=selected_status) }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+  <div class="table-responsive">
+    {{ table|safe }}
+  </div>
+{% endblock %}

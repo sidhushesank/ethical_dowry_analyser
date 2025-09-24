@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Overview{% endblock %}
+{% block content %}
+
+<div class="container-fluid" style="margin-top:2rem;">
+
+  <!-- Dashboard Summary Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary mb-3" style="min-height: 250px; display: flex; flex-direction: column; justify-content: space-between;">
+        <h5>Total Cases</h5>
+        <h2 id="totalCases">{{ total_cases }}</h2>
+        <div style="height: 80px;">
+          <canvas id="totalCasesTrend"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-dark bg-warning mb-3" style="min-height: 250px; display: flex; flex-direction: column; justify-content: space-between;">
+        <h5>Open Cases</h5>
+        <h2 id="openCases">{{ open_cases }}</h2>
+        <div style="height: 80px;">
+          <canvas id="openCasesTrend"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success mb-3" style="min-height: 250px; display: flex; flex-direction: column; justify-content: space-between;">
+        <h5>Closed Cases</h5>
+        <h2 id="closedCases">{{ closed_cases }}</h2>
+        <div style="height: 80px;">
+          <canvas id="closedCasesTrend"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-light mb-3 p-3" style="min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+        <h5>Regions Covered</h5>
+        <h2>{{ regions_covered }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div style="display:flex; align-items:center; justify-content:space-between; background:linear-gradient(90deg, #006d77 50%, #edf6f9 100%); padding:2rem; border-radius:14px; margin-bottom:2rem;">
+    <div>
+      <h1 style="font-size:2.7rem; color:#edf6f9; font-weight:800;">Ethical Dowry Demand Analyzer</h1>
+      <p style="font-size:1.3rem; color:#ffffff; font-weight:400; max-width:400px;">
+        <span style="color:#83c7d3;">Fighting injustice with data.</span>
+        Empower NGOs, recruiters, and policymakers with clear insights into dowry trends and ethical improvements.
+      </p>
+      <a href="/cases" style="background:#ffb703; color:#02414b; font-weight:600; padding:0.6rem 1.4rem; border-radius:8px; text-decoration:none; margin-top:1rem; display:inline-block;">Browse Cases</a>
+    </div>
+    <img src="{{ url_for('static', filename='justice.png') }}" alt="Justice Illustration" style="width:160px; border-radius:8px;" />
+  </div>
+
+  <p><strong>Current Dataset:</strong> <span class="badge bg-info">{{ active_file }}</span></p>
+
+  <!-- Social Impact Testimonial -->
+  <div style="margin-top:2rem; background:#f9fafc; border-left:8px solid #006d77; border-radius:10px; padding:1.2rem 2rem;">
+    <h3 style="margin:0 0 0.6rem 0; color:#006d77;">Social Impact</h3>
+    <p style="margin:0; color:#222;">
+      <em>“Thanks to the Ethical Dowry Analyzer, our NGO was able to interrupt three unethical demands and raise awareness in two new districts.”</em>
+      <br>
+      <span style="color:#008891; font-size:0.95rem;">- Kavya S., Social Worker</span>
+    </p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = {{ trend_labels|tojson }};
+  const totalValues = {{ total_trend|tojson }};
+  const openValues = {{ open_trend|tojson }};
+  const closedValues = {{ closed_trend|tojson }};
+
+  function createSparkline(ctx, data, borderColor) {
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          borderColor: borderColor,
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { x: { display: false }, y: { display: false, beginAtZero: true }},
+        plugins: { legend: { display: false }},
+        elements: { line: { borderWidth: 2 }},
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  createSparkline(document.getElementById('totalCasesTrend').getContext('2d'), totalValues, '#ffffff');
+  createSparkline(document.getElementById('openCasesTrend').getContext('2d'), openValues, '#000000');
+  createSparkline(document.getElementById('closedCasesTrend').getContext('2d'), closedValues, '#ffffff');
+
+  // Animate counters
+  function animateValue(id, start, end, duration) {
+    let range = end - start;
+    let current = start;
+    let increment = end > start ? 1 : -1;
+    let stepTime = Math.abs(Math.floor(duration / range));
+    let obj = document.getElementById(id);
+    let timer = setInterval(function() {
+      current += increment;
+      obj.innerHTML = current;
+      if (current == end) clearInterval(timer);
+    }, stepTime);
+  }
+
+  window.onload = () => {
+    animateValue("totalCases", 0, {{ total_cases }}, 1500);
+    animateValue("openCases", 0, {{ open_cases }}, 1500);
+    animateValue("closedCases", 0, {{ closed_cases }}, 1500);
+  };
+</script>
+
+{% endblock %}
